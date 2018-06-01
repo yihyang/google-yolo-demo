@@ -1,6 +1,6 @@
 {
-  "name": "google-yolo-poc",
-  "version": "0.0.0",
+  "name": "google-yolo-demo",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"

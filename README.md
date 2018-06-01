@@ -1,6 +1,8 @@
-# Google YOLO POC
+# Google YOLO Demo
 
-A Google YOLO Proof Of Concept (Automatic sign-in and one-tap sign-up) based on Official Guidelines from https://developers.google.com/identity/one-tap/web/overview
+A Google YOLO Demo (Automatic sign-in and one-tap sign-up) based on Official Guidelines from https://developers.google.com/identity/one-tap/web/overview
+
+This example will allow you to login and retrieve user information once as if you are using OAuth but in a simpler way (One Click login instead of multiple login).
 
 ## Getting Started
 
