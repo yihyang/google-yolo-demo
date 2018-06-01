@@ -1,3 +1,4 @@
+var idToken = null;
 // https://developers.google.com/identity/one-tap/web/get-started#load_the_javascript_client_library
 window.onGoogleYoloLoad = (googleyolo) => {
   // The 'googleyolo' object is ready for use.
@@ -32,13 +33,21 @@ function retrieve() {
       // An ID (usually email address) and password credential was retrieved.
       // Sign in to your backend using the password.
       // signInWithEmailAndPassword(credential.id, credential.password);
-      document.getElementById('result').textContent = JSON.stringify(credentials);
+      document.getElementById('result').textContent = JSON.stringify(credential);
+
+      // set token
+      idToken = credential.idToken;
+      document.getElementById('result-verify-token').textContent = "idToken:" + credential.idToken;
     } else {
       // A Google Account is retrieved. Since Google supports ID token responses,
       // you can use the token to sign in instead of initiating the Google sign-in
       // flow.
       // useGoogleIdTokenForAuth(credential.idToken);
-      document.getElementById('result').textContent = JSON.stringify(credentials);
+      document.getElementById('result').textContent = JSON.stringify(credential);
+
+      // set token
+      idToken = credential.idToken;
+      document.getElementById('result-verify-token').textContent = "idToken:" + credential.idToken;
     }
   }, (error) => {
     // Credentials could not be retrieved. In general, if the user does not
@@ -74,6 +83,10 @@ function hint() {
       // Send the token to your auth backend.
       // useGoogleIdTokenForAuth(credential.idToken);
       document.getElementById('result').textContent = JSON.stringify(credential);
+
+      // set token
+      idToken = credential.idToken;
+      document.getElementById('result-verify-token').textContent = "idToken:" + credential.idToken;
     }
   }, (error) => {
     document.getElementById('result').textContent = JSON.stringify(error);
@@ -108,3 +121,21 @@ function hint() {
   });
 }
 
+function verifyToken() {
+  if(idToken == null) {
+    document.getElementById('result-verify-token').textContent = 'No token retrieved, unable to verify token';
+  } else {
+    // send idToken to backend for verification
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/verify?idToken=' + idToken);
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        document.getElementById('result-verify-token').textContent = xhr.responseText;
+      }
+      else {
+        document.getElementById('result-verify-token').textContent = "Error while attempt to verify token with status code of " + xhr.status;
+      }
+    };
+    xhr.send();
+  }
+}

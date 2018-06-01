@@ -4,16 +4,19 @@ block content
   .container.text-center.mt-2.mb-2
     .columns
       .col-8.col-mx-auto
-        h1 Google YOLO POC
+        h1 Google YOLO Demo
         p Click on the following button:
         button.btn.btn-primary(onclick="retrieve()") Retrieve()
         button.btn.ml-2(onclick="hint()") Hint()
+        button.btn.ml-2(onclick="verifyToken()") Verify Token
 
   .container.text-center.pt-2
     .columns
       .col-8.col-mx-auto
         h3.mb-0 Result:
         #result
+        h3.mb-0.mt-2 Verify Token Result:
+        #result-verify-token
 
   script.
     var googleYoloClientID = "!{process.env.GOOGLE_YOLO_CLIENT_ID}";
